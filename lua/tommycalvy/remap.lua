@@ -1,5 +1,6 @@
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("n", "<C-`>", vim.cmd.Ex)
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -43,3 +44,28 @@ vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.dotfiles/nvim/.config/nvim/lua/the
 vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
 end)
+
+vim.keymap.set("n", "<C-s>", function()
+    vim.cmd("w")
+end)
+
+vim.keymap.set("n", "<C-q>", function()
+    vim.cmd("x")
+end)
+
+vim.api.nvim_create_autocmd('filetype', {
+  pattern = 'netrw',
+  desc = 'Better mappings for netrw',
+  callback = function()
+    local bind = function(lhs, rhs)
+      vim.keymap.set('n', lhs, rhs, {remap = true, buffer = true})
+    end
+
+    -- edit new file
+    bind('n', '%')
+
+    -- Change F1 for harpoon
+    vim.keymap.set("n", "<F1>", "<nop>", { noremap = true, buffer = true })
+    vim.keymap.set("n", "<F1>", "<cmd>lua require('harpoon'):list():select(1)<CR>", { remap = true, buffer = true })
+  end
+})
