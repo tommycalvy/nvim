@@ -5,57 +5,66 @@
 vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
-  -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
+    -- Packer can manage itself
+    use 'wbthomason/packer.nvim'
 
-  use 'christoomey/vim-tmux-navigator'
+    use 'christoomey/vim-tmux-navigator'
 
-  use {
-	  'nvim-telescope/telescope.nvim', tag = '0.1.5',
-	  -- or                            , branch = '0.1.x',
-	  requires = { {'nvim-lua/plenary.nvim'} }
-  }
+    use {
+        'nvim-telescope/telescope.nvim', tag = '0.1.5',
+        -- or                            , branch = '0.1.x',
+        requires = { {'nvim-lua/plenary.nvim'} }
+    }
 
-  use({
-      'rose-pine/neovim',
-      as = 'rose-pine',
-      config = function()
-          vim.cmd('colorscheme rose-pine')
-      end
-  })
+    use ({
+        'folke/trouble.nvim',
+        config = function()
+            require("trouble").setup {
+                icons = false,
+            }
+        end
+    })
 
-  use( 'nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
+    use({
+        'rose-pine/neovim',
+        as = 'rose-pine',
+        config = function()
+            vim.cmd('colorscheme rose-pine')
+        end
+    })
 
-  use {
-	  "ThePrimeagen/harpoon",
-	  branch = "harpoon2",
-	  requires = { {"nvim-lua/plenary.nvim"} }
-  }
+    use( 'nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
 
-  use 'mbbill/undotree'
+    use {
+        "ThePrimeagen/harpoon",
+        branch = "harpoon2",
+        requires = { {"nvim-lua/plenary.nvim"} }
+    }
 
-  use 'tpope/vim-fugitive'
+    use 'mbbill/undotree'
 
-  use {
-	  'VonHeikemen/lsp-zero.nvim',
-	  branch = 'v3.x',
-	  requires = {
-		  --- Uncomment these if you want to manage LSP servers from neovim
-		  {'williamboman/mason.nvim'},
-		  {'williamboman/mason-lspconfig.nvim'},
+    use 'tpope/vim-fugitive'
 
-		  -- LSP Support
-		  {'neovim/nvim-lspconfig'},
-		  -- Autocompletion
-		  {'hrsh7th/nvim-cmp'},
-		  {'hrsh7th/cmp-nvim-lsp'},
-		  {'L3MON4D3/LuaSnip'},
-	  }
-  }
+    use {
+        'VonHeikemen/lsp-zero.nvim',
+        branch = 'v3.x',
+        requires = {
+            --- Uncomment these if you want to manage LSP servers from neovim
+            {'williamboman/mason.nvim'},
+            {'williamboman/mason-lspconfig.nvim'},
 
-  use 'github/copilot.vim'
+            -- LSP Support
+            {'neovim/nvim-lspconfig'},
+            -- Autocompletion
+            {'hrsh7th/nvim-cmp'},
+            {'hrsh7th/cmp-nvim-lsp'},
+            {'L3MON4D3/LuaSnip'},
+        }
+    }
 
-  use 'eandrju/cellular-automaton.nvim'
+    use 'github/copilot.vim'
+
+    use 'eandrju/cellular-automaton.nvim'
 
 end)
 
