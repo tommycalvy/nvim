@@ -17,12 +17,17 @@ end)
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
-  ensure_installed = {'tsserver', 'rust_analyzer'},
+  ensure_installed = {'tsserver', 'rust_analyzer', 'lua_ls', 'html'},
   handlers = {
     lsp_zero.default_setup,
-    lua_ls = function()
+    ['lua_ls'] = function()
       local lua_opts = lsp_zero.nvim_lua_ls()
       require('lspconfig').lua_ls.setup(lua_opts)
+    end,
+    ['html'] = function()
+      require('lspconfig').html.setup({
+          filetypes = {'html', 'javascript'},
+      })
     end,
   }
 })
