@@ -17,19 +17,43 @@ end)
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
-  ensure_installed = {'tsserver', 'rust_analyzer', 'lua_ls', 'html'},
-  handlers = {
-    lsp_zero.default_setup,
-    ['lua_ls'] = function()
-      local lua_opts = lsp_zero.nvim_lua_ls()
-      require('lspconfig').lua_ls.setup(lua_opts)
-    end,
-    ['html'] = function()
-      require('lspconfig').html.setup({
-          filetypes = {'html', 'javascript'},
-      })
-    end,
-  }
+    ensure_installed = {'tsserver', 'lua_ls', 'html'},
+    handlers = {
+        lsp_zero.default_setup,
+        ['lua_ls'] = function()
+            local lua_opts = lsp_zero.nvim_lua_ls()
+            require('lspconfig').lua_ls.setup(lua_opts)
+        end,
+        ['html'] = function()
+            require('lspconfig').html.setup({
+                filetypes = {'html', 'javascript'},
+            })
+        end,
+        ['tsserver'] = function()
+            require('lspconfig').tsserver.setup({
+                filetypes = {
+                    'javascript',
+                    'typescript',
+                    'html',
+                    'jsx',
+                    'tsx',
+                    'javascriptreact',
+                    'typescriptreact'
+                }
+            })
+        end,
+        ['cssmodules_ls'] = function()
+            require('lspconfig').cssmodules_ls.setup({
+                on_attach = function (client)
+                    -- avoid accepting `definitionProvider` responses from this LSP
+                    client.server_capabilities.definitionProvider = false
+                end,
+                init_options = {
+                    camelCase = true,
+                },
+            })
+        end,
+    }
 })
 
 local cmp = require('cmp')
