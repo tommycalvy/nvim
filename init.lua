@@ -1,1 +1,1 @@
-require("tommycalvy")
+require("plugins.lazy")

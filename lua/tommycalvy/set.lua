@@ -28,4 +28,4 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
-vim.lsp.set_log_level("debug")
+vim.lsp.set_log_level("OFF")
